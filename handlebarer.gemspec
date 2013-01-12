@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.version     = Handlebarer::VERSION
   gem.authors     = ["Zohar Arad"]
   gem.email       = ["zohar@zohararad.com"]
-  gem.homepage    = "TODO"
+  gem.homepage    = "https://github.com/zohararad/handlebarer"
   gem.summary     = "JST and Rails views compiler for Handlebars templates"
   gem.description = "Share your Handlebars views between client and server, eliminate code duplication and make your single-page app SEO friendly"
 
