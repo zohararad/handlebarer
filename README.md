@@ -30,7 +30,7 @@ To share our template between client and server, we need to place it under `app/
 
 Lets create a views directory for our shared templates `app/assets/javascripts/views` and add our template there, following Rails' naming convensions.
 
-The full template path should look like this: `app/assets/javascripts/views/users/index.jst.hsb`
+The full template path should look like this: `app/assets/javascripts/views/users/index.jst.hbs`
 
 ### Template code
 
@@ -39,14 +39,14 @@ The most significant differences between using standard server-side Ruby-based e
 * No access to server-side view helpers (such as url_for)
 * No ruby-style instance variable like `@users`
 * Template code is not Ruby and has to follow Handlerbars' syntax rather than embedded Ruby syntax
-* No partials or includes (for now)
+* No partials (for now)
 
 Our template code should look like this:
 
 ```html
 <ul class="users">
 {{#users}}
-<li>{{{link_to this}}}</li>
+<li>{{this.name}}</li>
 {{/users}}
 </ul>
 ```
@@ -58,7 +58,7 @@ and the call to `=yield` will render your Handlerbars template above.
 
 Since Rails doesn't expect server-side templates to live under `app/assets` we need to add our client-side views path to Rails views lookup path.
 
-Assuming we have an initializer `app/config/initializers/jader.rb` we can add our client-side views directory like this:
+Assuming we have an initializer `app/config/initializers/handlebarer.rb` we can add our client-side views directory like this:
 
 ```ruby
 Handlerbarer.configure do |config|
@@ -92,7 +92,7 @@ end
 ```
 
 Note the call to `to_hbs` on the `@users` collection. This ensures our users are properly serialized for use inside our template.
-See the [Serialization](https://github.com/zohararad/jader#serialization) section below for more details.
+See the [Serialization](https://github.com/zohararad/handlebarer#serialization) section below for more details.
 
 In our `application.js` file lets write the following:
 
@@ -255,7 +255,7 @@ Please note that at the moment, Handlebarer only supports Javascript helper file
 
 Its recommended to configure Handlerbarer inside a Rails initializer so that configuration is defined at boot time.
 
-Assuming we have an initializer `app/config/initializers/jader.rb` it should include:
+Assuming we have an initializer `app/config/initializers/handlebarer.rb` it should include:
 
 ```ruby
 Handlerbarer.configure do |config|
