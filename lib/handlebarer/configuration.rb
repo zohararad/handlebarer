@@ -9,7 +9,6 @@ module Handlebarer
   #     Handlebarer.configure do |config|
   #       config.helpers_path = Rails.root.join('app','assets','javascripts','helpers')
   #       config.views_path = Rails.root.join('app','assets','javascripts','views')
-  #       config.includes << IO.read Rails.root.join('app','assets','javascripts','util.js')
   #     end
   def self.configure
     self.configuration ||= Configuration.new
@@ -18,13 +17,12 @@ module Handlebarer
 
   # Jader configuration class
   class Configuration
-    attr_accessor :helpers_path, :views_path, :includes
+    attr_accessor :helpers_path, :views_path
 
     # Initialize Jader::Configuration class with default values
     def initialize
       @helpers_path = nil
       @views_path = nil
-      @includes = []
     end
   end
 end

@@ -44,9 +44,25 @@ module Handlebarer
     # @return [String] HTML output of compiled Handlerbars template
     def render(template, vars = {})
       v8_context do |context|
+        unless Handlebarer.configuration.nil?
+          helpers = handlebars_helpers
+          context.eval(helpers.join("\n")) if helpers.any?
+        end
         context.eval("var fn = Handlebars.compile(#{template.to_json})")
         context.eval("fn(#{vars.to_hbs.to_json})")
       end
+    end
+
+    # Handlebars helpers
+    # @return [Array<String>] array of Handlebars helpers to use with a Handlebars template rendered by a Rails controller
+    def handlebars_helpers
+      helpers = []
+      unless Handlebarer.configuration.helpers_path.nil?
+        Dir["#{Handlebarer.configuration.helpers_path}/*.js"].each do |f|
+          helpers << IO.read(f)
+        end
+      end
+      helpers
     end
 
   end
