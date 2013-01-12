@@ -9,7 +9,7 @@ module Handlebarer
 
     # Handlebars source code path
     def self.handlebars_path
-      File.expand_path("../../../vendor/assets/javascripts/handlebars/handlebars-1.0.rc.1.js", __FILE__)
+      File.expand_path("../../../vendor/assets/javascripts/handlebars/handlebars.js", __FILE__)
     end
 
     # Handlebars runtime source code
@@ -19,7 +19,7 @@ module Handlebarer
 
     # Handlebars runtime source code path
     def self.runtime_path
-      File.expand_path("../../../vendor/assets/javascripts/handlebars/handlebars.runtime-1.0.rc.1.js", __FILE__)
+      File.expand_path("../../../vendor/assets/javascripts/handlebars/runtime.js", __FILE__)
     end
 
   end
