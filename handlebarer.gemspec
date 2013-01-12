@@ -7,11 +7,11 @@ require "handlebarer/version"
 Gem::Specification.new do |gem|
   gem.name        = "handlebarer"
   gem.version     = Handlebarer::VERSION
-  gem.authors     = ["TODO: Your name"]
-  gem.email       = ["TODO: Your email"]
+  gem.authors     = ["Zohar Arad"]
+  gem.email       = ["zohar@zohararad.com"]
   gem.homepage    = "TODO"
-  gem.summary     = "TODO: Summary of Handlebarer."
-  gem.description = "TODO: Description of Handlebarer."
+  gem.summary     = "JST and Rails views compiler for Handlebars templates"
+  gem.description = "Share your Handlebars views between client and server, eliminate code duplication and make your single-page app SEO friendly"
 
   gem.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
