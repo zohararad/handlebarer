@@ -222,7 +222,7 @@ By default, `hbs_serializable` will operate with `:merge => true` and merge inst
 Handlerbars has built in support for helper function registration, which is great for client-side rendering, but alas requires a
 bit of extra work for server-side rendering.
 
-Lets assume you have registered Handlebars helpers reside under `app/assets/javascripts/helpers/link.js`
+Lets assume you have a registered Handlebars helper defined in `app/assets/javascripts/helpers/link.js`
 that might look something like this:
 
 ```javascript
@@ -231,14 +231,14 @@ Handlebars.registerHelper('link_to', function(context) {
 });
 ```
 
-On the client-side, you might add to the asset pipeline like this:
+On the client-side, you might add it to the asset pipeline like this:
 
 ```javascript
 //= require handlebars/runtime
 //= require helpers/link.js
 ```
 
-To use the same helper on the server-side, you'll need to configre Handlebarer like so:
+To use the same helper on the server-side, you'll need to configure Handlebarer like so:
 
 ```ruby
 Handlerbarer.configure do |config|
@@ -246,8 +246,8 @@ Handlerbarer.configure do |config|
 end
 ```
 
-When rendering your Handlebars template server-side, Handlerbarer will look for any Javascript file in the helpers path and
-include it in the rendering context.
+When rendering your Handlebars template server-side, Handlerbarer will look for any Javascript files in the helpers path and
+include them in the rendering context.
 
 Please note that at the moment, Handlebarer only supports Javascript helper files rather than both Javascript and CoffeeScript.
 
