@@ -6,11 +6,7 @@ module Handlebarer
     # Handlerbars template engine Javascript source code used to compile templates in ExecJS
     # @return [String] Handlerbars source code
     def source
-      @source ||= %{
-        var window = {};
-        #{Handlebarer::Source::handlebars}
-        var handlebars_version = Handlebars.VERSION;
-      }
+      @source ||= Handlebarer::Source::handlebars
     end
 
     # V8 context with Handlerbars code compiled
@@ -27,19 +23,19 @@ module Handlebarer
     # @return [String] version of Handlerbars javascript engine installed in `vendor/assets/javascripts`
     def handlebars_version
       v8_context do |context|
-        context.eval("handlebars_version")
+        context.eval("Handlebars.VERSION")
       end
     end
 
     # Compile a Handlerbars template for client-side use with JST
     # @param [String, File] template Handlerbars template file or text to compile
-    # @param [String] file_name name of template file used to resolve mixins inclusion
     # @return [String] Handlerbars template compiled into Javascript and wrapped inside an anonymous function for JST
     def compile(template, file_name = '')
       v8_context do |context|
         template = template.read if template.respond_to?(:read)
         file_name.match(/views\/([^\/]+)\//)
         controller_name = $1 || nil
+        context.eval("Handlebars.precompile('#{template}')").to_s
         #combo = (template_mixins(controller_name) << template).join("\n").to_json
         #context.eval("jade.compile(#{combo},#{@options.to_json})").to_s.sub('function anonymous','function')
       end
