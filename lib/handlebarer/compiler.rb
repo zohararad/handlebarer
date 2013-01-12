@@ -33,9 +33,8 @@ module Handlebarer
     def compile(template)
       v8_context do |context|
         template = template.read if template.respond_to?(:read)
-        context.eval("Handlebars.precompile(#{template.to_json})")
-        #combo = (template_mixins(controller_name) << template).join("\n").to_json
-        #context.eval("jade.compile(#{combo},#{@options.to_json})").to_s.sub('function anonymous','function')
+        compiled_handlebars = context.eval("Handlebars.precompile(#{template.to_json})")
+        "Handlebars.template(#{compiled_handlebars});"
       end
     end
 

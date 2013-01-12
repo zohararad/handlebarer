@@ -23,10 +23,7 @@ module Handlebarer
     # @return [String] JST-compliant compiled version of the Handlebars template being rendered
     def evaluate(scope, locals, &block)
       c = Handlebarer::Compiler.new
-      compiled_handlebars = c.compile(data)
-      %{
-        Handlebars.template(#{compiled_handlebars});
-      }
+      c.compile(data)
     end
 
   end

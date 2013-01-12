@@ -5,6 +5,7 @@ module Handlebarer
   class Engine < Rails::Engine
     initializer 'handlebarer.configure_rails_initialization', :before => 'sprockets.environment', :group => :all do |app|
       next unless app.config.assets.enabled
+      Sprockets.register_engine '.hbs', ::Handlebarer::Template
       Sprockets.register_engine '.handlebars', ::Handlebarer::Template
     end
 
