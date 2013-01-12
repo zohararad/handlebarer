@@ -25,8 +25,8 @@ describe Handlebarer::Renderer do
     end
 
     it 'renders users' do
-      response.body.should include @mike.name
-      response.body.should include @joe.name
+      response.body.should include "<p>#{@mike.name}</p>"
+      response.body.should include "<p>#{@joe.name}</p>"
     end
 
   end
