@@ -40,15 +40,12 @@ module Handlebarer
 
     # Compile and evaluate a Handlerbars template for server-side rendering
     # @param [String] template Handlerbars template text to render
-    # @param [String] controller_name name of Rails controller that's rendering the template
     # @param [Hash] vars controller instance variables passed to the template
     # @return [String] HTML output of compiled Handlerbars template
-    def render(template, controller_name, vars = {})
+    def render(template, vars = {})
       v8_context do |context|
-        #context.eval(Handlebarer.configuration.includes.join("\n"))
-        #combo = (template_mixins(controller_name) << template).join("\n").to_json
-        #context.eval("var fn = jade.compile(#{combo})")
-        #context.eval("fn(#{vars.to_jade.to_json})")
+        context.eval("var fn = Handlebars.compile(#{template.to_json})")
+        context.eval("fn(#{vars.to_hbs.to_json})")
       end
     end
 
