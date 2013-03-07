@@ -21,7 +21,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'tilt'
   gem.add_dependency 'sprockets'
   gem.add_dependency 'therubyracer'
-  gem.add_dependency 'libv8', '3.11.8'
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'rspec-rails'
   gem.add_development_dependency 'rails', '~> 3.2.11'
