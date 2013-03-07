@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.summary     = "JST and Rails views compiler for Handlebars templates"
   gem.description = "Share your Handlebars views between client and server, eliminate code duplication and make your single-page app SEO friendly"
 
-  gem.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
+  gem.files = Dir["{lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
