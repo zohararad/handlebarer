@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    handlebarer (0.0.1)
+    handlebarer (0.0.3)
       sprockets
       therubyracer
       tilt
@@ -99,7 +99,7 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.7)
-    therubyracer (0.11.3)
+    therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
     thor (0.17.0)
