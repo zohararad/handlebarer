@@ -1,10 +1,10 @@
-# Handlerbarer - Share your Handlerbars templates between client and server
+# Handlebarer - Share your Handlebars templates between client and server
 
-Handlerbars is a very popular templating engine, recently given much deserved attention due to the awesome Ember.js Framework.
-Handlebarer gives you ability to easily use Handlerbars templates for both server and client side in your Rails project.
+Handlebars is a very popular templating engine, recently given much deserved attention due to the awesome Ember.js Framework.
+Handlebarer gives you ability to easily use Handlebars templates for both server and client side in your Rails project.
 
 On the client-side your templates should be used with Rails' JST engine. On the server side, you can render your
-Handlerbars templates as Rails views (similar to how you'd render ERB or HAML templates).
+Handlebars templates as Rails views (similar to how you'd render ERB or HAML templates).
 
 ## Writing your templates
 
@@ -34,11 +34,11 @@ The full template path should look like this: `app/assets/javascripts/views/user
 
 ### Template code
 
-The most significant differences between using standard server-side Ruby-based engines like ERB or HAML and using Handlerbarer are:
+The most significant differences between using standard server-side Ruby-based engines like ERB or HAML and using Handlebarer are:
 
 * No access to server-side view helpers (such as url_for)
 * No ruby-style instance variable like `@users`
-* Template code is not Ruby and has to follow Handlerbars' syntax rather than embedded Ruby syntax
+* Template code is not Ruby and has to follow Handlebars' syntax rather than embedded Ruby syntax
 * No partials (for now)
 
 Our template code should look like this:
@@ -52,7 +52,7 @@ Our template code should look like this:
 ```
 
 Note that rendering this template server-side, will be done inside your application's layout. You can write your views layout file in ERB / HAML
-and the call to `=yield` will render your Handlerbars template above.
+and the call to `=yield` will render your Handlebars template above.
 
 ### Sharing template code
 
@@ -61,7 +61,7 @@ Since Rails doesn't expect server-side templates to live under `app/assets` we n
 Assuming we have an initializer `app/config/initializers/handlebarer.rb` we can add our client-side views directory like this:
 
 ```ruby
-Handlerbarer.configure do |config|
+Handlebarer.configure do |config|
   # make your client-side views directory discoverable to Rails
   config.views_path = Rails.root.join('app','assets','javascripts','views')
 end
@@ -107,31 +107,31 @@ $.getJSON('/users', function(users){
 
 ## Serialization
 
-To help Handlerbarer access Ruby and Rails variables inside the template, we need to employ some sort of JSON serializing before passing
+To help Handlebarer access Ruby and Rails variables inside the template, we need to employ some sort of JSON serializing before passing
 these variables to the template. On the server-side, this happens automagically before the template is rendered.
 
-Internally, Handlerbarer will try to call the `to_hbs` method on each instance variable that's passed to the template. Ruby's Hash, Array and Object classes have been extended
+Internally, Handlebarer will try to call the `to_hbs` method on each instance variable that's passed to the template. Ruby's Hash, Array and Object classes have been extended
 to support this functionality. Arrays and Hashes will attempt to call the `to_hbs` method on their members when `to_hbs` is invoked on their instances. For
 other collection-like variables, the `to_hbs` method will only be invoked if they respond to a `to_a` method. This allows ActiveModel / ActiveRecord instance variables to
 automatically serialize their members before rendering.
 
 ### Serializing models
 
-Handlerbarer does not assume your Rails models should be serialized by default. Instead, it expects you to enable serializing on desired models explicitly.
+Handlebarer does not assume your Rails models should be serialized by default. Instead, it expects you to enable serializing on desired models explicitly.
 
 To enable this behaviour, consider the following example:
 
 ```ruby
 class User < ActiveRecord::Base
 
-  include Handlerbarer::Serialize
+  include Handlebarer::Serialize
 
   hbs_serializable :name, :email, :favorites, :merge => false
 
 end
 ```
 
-The call to `include Handlerbarer::Serialize` mixes Handlerbarer::Serializer capabilities into our model class.
+The call to `include Handlebarer::Serialize` mixes Handlebarer::Serializer capabilities into our model class.
 
 We can then tell the serializer which attributes we'd like to serialize, and how we'd like the serialization to work.
 
@@ -143,7 +143,7 @@ Consider the following code:
 # define our model
 class User < ActiveRecord::Base
 
-  include Handlerbarer::Serialize
+  include Handlebarer::Serialize
 
   hbs_serializable
 
@@ -175,7 +175,7 @@ Consider the following code:
 
 class Favorite < ActiveRecord::Base
 
-  include Handlerbarer::Serialize
+  include Handlebarer::Serialize
 
   hbs_serializable
 
@@ -185,7 +185,7 @@ end
 
 class User < ActiveRecord::Base
 
-  include Handlerbarer::Serialize
+  include Handlebarer::Serialize
 
   hbs_serializable :favorites, :merge => true
 
@@ -219,7 +219,7 @@ By default, `hbs_serializable` will operate with `:merge => true` and merge inst
 
 ## Helpers
 
-Handlerbars has built in support for helper function registration, which is great for client-side rendering, but alas requires a
+Handlebars has built in support for helper function registration, which is great for client-side rendering, but alas requires a
 bit of extra work for server-side rendering.
 
 Lets assume you have a registered Handlebars helper defined in `app/assets/javascripts/helpers/link.js`
@@ -241,24 +241,24 @@ On the client-side, you might add it to the asset pipeline like this:
 To use the same helper on the server-side, you'll need to configure Handlebarer like so:
 
 ```ruby
-Handlerbarer.configure do |config|
+Handlebarer.configure do |config|
   config.helpers_path = Rails.root.join('app','assets','javascripts','helpers')
 end
 ```
 
-When rendering your Handlebars template server-side, Handlerbarer will look for any Javascript files in the helpers path and
+When rendering your Handlebars template server-side, Handlebarer will look for any Javascript files in the helpers path and
 include them in the rendering context.
 
 Please note that at the moment, Handlebarer only supports Javascript helper files rather than both Javascript and CoffeeScript.
 
 ## Configuration
 
-Its recommended to configure Handlerbarer inside a Rails initializer so that configuration is defined at boot time.
+Its recommended to configure Handlebarer inside a Rails initializer so that configuration is defined at boot time.
 
 Assuming we have an initializer `app/config/initializers/handlebarer.rb` it should include:
 
 ```ruby
-Handlerbarer.configure do |config|
+Handlebarer.configure do |config|
   # tell Handlebarer where to find your Handlebars helpers
   config.helpers_path = Rails.root.join('app','assets','javascripts','helpers')
   # make your client-side views directory discoverable to Rails
@@ -268,9 +268,9 @@ end
 
 ## Asset Pipeline
 
-In case your Rails asset pipeline is configured **not** to load the entire Rails environment when calling `rake assets:precompile`, you should include Handlerbarer's configuration initalizer in your Rakefile.
+In case your Rails asset pipeline is configured **not** to load the entire Rails environment when calling `rake assets:precompile`, you should include Handlebarer's configuration initalizer in your Rakefile.
 
-Simply add `require File.expand_path('../config/initializers/handlebarer', __FILE__)` before `require File.expand_path('../config/application', __FILE__)` in your Rakefile, and ensure Handlerbarer is properly configured when your assets are precompiled
+Simply add `require File.expand_path('../config/initializers/handlebarer', __FILE__)` before `require File.expand_path('../config/application', __FILE__)` in your Rakefile, and ensure Handlebarer is properly configured when your assets are precompiled
 
 # License
 
